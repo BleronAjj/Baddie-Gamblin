@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anime Pulls 🎀</title>
 <style>
+/* --- GENERAL --- */
 body {
     margin:0;
     font-family: Arial;
@@ -13,26 +15,29 @@ body {
 }
 header {
     padding: 20px;
-    font-size:28px;
+    font-size: 24px;
     background:#ff4da6;
     box-shadow:0 0 15px #ff4da6;
 }
 .balance {
     margin:15px;
-    font-size:22px;
+    font-size:20px;
 }
+
+/* --- SLOT REELS --- */
 #slot-container {
     display:flex;
     justify-content:center;
-    gap:15px;
-    margin-top:30px;
+    gap:10px;
+    margin-top:20px;
+    flex-wrap:wrap; /* wrap on small screens */
 }
 .reel {
-    width:80px;
-    height:120px;
+    width:70px;
+    height:100px;
     overflow:hidden;
     border:3px solid #ff4da6;
-    border-radius:15px;
+    border-radius:12px;
     background:#2a0033;
     box-shadow:0 0 15px #ff4da6;
     position:relative;
@@ -41,8 +46,8 @@ header {
     position:absolute;
     width:100%;
     text-align:center;
-    font-size:40px;
-    line-height:120px;
+    font-size:32px;
+    line-height:100px;
 }
 .spinning {
     animation: pulse 0.6s infinite alternate;
@@ -52,28 +57,58 @@ header {
     from {transform:scale(1); box-shadow:0 0 10px #ff4da6;}
     to {transform:scale(1.05); box-shadow:0 0 30px #ff4da6;}
 }
+
+/* --- BUTTONS --- */
 button {
     margin:10px;
-    padding:12px 25px;
+    padding:14px 28px;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
     background:#ff4da6;
     color:white;
     cursor:pointer;
-    font-size:16px;
+    font-size:18px;
+    transition:0.2s;
 }
 button:hover {
-    transform:scale(1.1);
+    transform:scale(1.05);
 }
-.shop, .owned {margin-top:30px;}
-.girls {display:flex; justify-content:center; flex-wrap:wrap; gap:15px; margin-top:15px;}
-.card {background:#2a0033; padding:10px; border-radius:15px; width:140px; box-shadow:0 0 10px pink;}
-.card img {width:100%; border-radius:10px;}
+
+/* --- SHOP & COLLECTION --- */
+.shop, .owned {margin-top:25px;}
+.girls {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+    overflow-x:auto; /* horizontal scroll on small screens */
+    padding-bottom:10px;
+}
+.card {
+    background:#2a0033;
+    padding:8px;
+    border-radius:12px;
+    width:120px;
+    box-shadow:0 0 10px pink;
+    flex-shrink:0; /* prevents shrinking on small screens */
+}
+.card img {
+    width:100%;
+    border-radius:8px;
+}
+
+/* --- MEDIA QUERIES --- */
+@media(max-width:480px){
+    .reel {width:60px; height:90px;}
+    .symbols {font-size:28px; line-height:90px;}
+    button {padding:12px 22px; font-size:16px;}
+    .card {width:100px;}
+}
 </style>
 </head>
 <body>
 
-<header>🎀 Baddie Gamling 🎰</header>
+<header>🎀 Baddie Gambling 🎰</header>
 <div class="balance">💰 Coins: <span id="coins">0</span></div>
 
 <div id="slot-container">
@@ -105,7 +140,6 @@ const girls = [
     {name:"Maki", price:1000, img:"https://i.imgur.com/4LdzGgq.jpeg"},
     {name:"Anko", price:2500, img:"https://preview.redd.it/detective-anko-fan-art-by-gyunzai-call-of-the-night-v0-8bdupkuibhp91.jpg?auto=webp&s=29cfd452d9f56a5b78a528230933d4ab15c06e6b"},
     {name:"Astolfo", price:5000, img:"https://i.imgur.com/hjwSd8T.jpeg"}
-
 ];
 let owned = [];
 
@@ -175,7 +209,7 @@ function finishSpin(s1,s2,s3){
     let reward=Math.floor(Math.random()*25)+15;
     if(s1===s2 && s2===s3){
         reward+=350;
-        document.getElementById("result").innerText="JACKPOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 🔥";
+        document.getElementById("result").innerText="JACKPOT!!! 🔥";
     } else {
         document.getElementById("result").innerText="Nice spin nga";
     }
@@ -231,5 +265,6 @@ loadGame();
 renderShop();
 renderCollection();
 </script>
+
 </body>
 </html>
